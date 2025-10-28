@@ -1,0 +1,3 @@
+/* ajustes suaves para la tabla y la card */
+.card { box-shadow: 0 6px 20px rgba(0,0,0,.04); border-radius: 8px; }
+.table > tbody > tr > td { vertical-align: middle; }

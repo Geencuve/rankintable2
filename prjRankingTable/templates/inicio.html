@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<!-- Carrusel de imágenes -->
+<div id="carouselExample" class="carousel slide mb-4" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'media/1.jpg' %}" class="d-block w-100 img-fluid" style="height: 200px; object-fit: cover;" alt="Imagen 1">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'media/2.png' %}" class="d-block w-100 img-fluid" style="height: 200px; object-fit: cover;" alt="Imagen 2">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'media/3.png' %}" class="d-block w-100 img-fluid" style="height: 200px; object-fit: cover;" alt="Imagen 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
+
+<!-- Información de equipos destacados -->
+<section class="mb-4">
+  <div class="container my-5">
+    <h2 class="text-center mb-4">🏆 Equipos Destacados</h2>
+    <div class="row justify-content-center">
+      {% for ranking in destacados %}
+      <div class="col-md-4 mb-3">
+        <div class="card text-center shadow">
+          <div class="card-header bg-primary text-white">
+            Puesto {{ ranking.posicion }}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ ranking.equipo.nombre }}</h5>
+            <p class="card-text"><strong>Puntos:</strong> {{ ranking.puntajetotal }}</p>
+            <p class="card-text"><strong>Código:</strong> {{ ranking.equipo.codigo }}</p>
+            <p class="card-text"><strong>Institución:</strong> {{ ranking.equipo.institucion }}</p>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-muted col-12 text-center">No hay equipos destacados aún.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Tabla general con sombra y bordes redondeados -->
+  <div class="table-responsive shadow-sm rounded">
+    <table class="table table-striped table-hover table-bordered align-middle text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>#</th>
+          <th>Equipo</th>
+          <th>PTS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in tabla %}
+        <tr>
+          <td>{{ row.posicion }}</td>
+          <td>
+            <a href="{% url 'equipo_detail' row.equipo.id %}" class="text-decoration-none">
+              {{ row.equipo.nombre }}
+            </a>
+          </td>
+          <td>{{ row.puntajetotal }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3" class="text-center text-muted">No hay datos</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,56 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Ranking Table{% endblock %}</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    html,body { min-height: 100%; background-color: #f8fafc;}
+    main { min-height: 75vh; }
+    header.sticky-top, footer { box-shadow: 0 2px 6px rgba(0,0,0,.08);}
+    .card { border-radius: 1rem; }
+    footer { background: #22223B !important; color: #fff;}
+    footer a { color: #f2e9e4; }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <!-- Header -->
+  <header class="sticky-top py-3 px-3 bg-primary" style="background: linear-gradient(90deg,#22223B,#4A4E69);">
+    <div class="container-lg d-flex justify-content-between align-items-center">
+      <a href="{% url 'inicio' %}" class="h3 mb-0 text-white text-decoration-none fw-bold" style="letter-spacing:2px;">🏅 Ranking Table</a>
+      <nav>
+        <div class="d-flex gap-3">
+          <a href="{% url 'tabla_posicionamiento' %}" class="btn btn-outline-light fw-semibold rounded-pill"
+             onclick="return confirm('Estas opciones son únicamente para el administrador. ¿Continuar de todas maneras?')">
+              Opciones de Admin
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container-lg py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">{% block content %}{% endblock %}</div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-3 mt-auto">
+    <div class="container-lg d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <div>© 2025 Ranking Table. Derechos reservados.</div>
+      <div>Última actualización: {{ now|date:"d/m/Y H:i" }}</div>
+      <div><a href="#">Nosotros</a> | <a href="#">Contacto</a></div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

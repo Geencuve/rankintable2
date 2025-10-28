@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle Equipo{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height:50vh;">
+  <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">{{ equipo.nombre }}</h2>
+      <ul class="list-group mb-4">
+        <li class="list-group-item"><strong>Código:</strong> {{ equipo.codigo }}</li>
+        <li class="list-group-item"><strong>Fecha de creación:</strong> {{ equipo.fechacreacion }}</li>
+        <li class="list-group-item"><strong>Institución:</strong> {{ equipo.institucion }}</li>
+      </ul>
+      <div class="d-flex justify-content-center gap-3">
+        <a href="{% url 'equipo_update' equipo.pk %}" class="btn btn-primary px-4">Editar</a>
+        <a href="{% url 'equipo_delete' equipo.pk %}" class="btn btn-danger px-4">Eliminar</a>
+        <a href="{% url 'equipo_list' %}" class="btn btn-secondary px-4">Volver a la lista</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
