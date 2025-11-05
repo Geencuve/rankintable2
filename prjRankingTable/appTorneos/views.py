@@ -4,8 +4,57 @@ from django.db.models import Sum
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django import forms
-
+from django.http import JsonResponse
+from appTorneos.serializers import RankingSerializer
 from .models import Equipo, Ranking, Puntaje, Sala, Ronda, Participante
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view, renderer_classes 
+
+
+# --- Vista JsonResponse Views---
+@api_view(['GET', 'POST'])
+
+def ranking_list(request):
+    if request.method == 'GET':
+        rankings = Ranking.objects.all()
+        serializer = RankingSerializer(rankings, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = RankingSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+
+def ranking_detail(request,pk):
+    try:
+        ranking = Ranking.objects.get(pk=pk)
+    except Ranking.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = RankingSerializer(ranking)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = RankingSerializer(ranking, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        ranking.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+def posisionamientosviews(request):
+    posicion = Ranking.objects.all()
+    data={'Posicion':list(posicion.values('posicion', 'equipo_id', 'puntajetotal'))}
+    return JsonResponse (data)
 
 # --- Vista de la tabla de posicionamiento ---
 def tabla_posicionamiento(request):

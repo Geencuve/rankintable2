@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views_auth import login_view, registro_view, logout_view
 
 urlpatterns = [
     path('', views.tabla_posicionamiento, name='home'),
@@ -17,4 +18,10 @@ urlpatterns = [
     path('ranking/<int:pk>/editar/', views.RankingUpdateView.as_view(), name='ranking_update'),
     path('ranking/<int:pk>/eliminar/', views.RankingDeleteView.as_view(), name='ranking_delete'),
     path('ranking/', views.RankingListView.as_view(), name='ranking_list'),
+    path('posionamientoRes/',views.posisionamientosviews, name='posionamientoRes'),
+    path('ranking2/',views.ranking_list, name='ranking2'),
+    path('ranking3/<int:pk>/',views.ranking_detail),
+    path('login/', login_view, name='login'),
+    path('registro/', registro_view, name='registro'),
+    path('logout/', logout_view, name='logout'),
 ]

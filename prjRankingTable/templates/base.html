@@ -24,10 +24,15 @@
       <a href="{% url 'inicio' %}" class="h3 mb-0 text-white text-decoration-none fw-bold" style="letter-spacing:2px;">🏅 Ranking Table</a>
       <nav>
         <div class="d-flex gap-3">
-          <a href="{% url 'tabla_posicionamiento' %}" class="btn btn-outline-light fw-semibold rounded-pill"
-             onclick="return confirm('Estas opciones son únicamente para el administrador. ¿Continuar de todas maneras?')">
-              Opciones de Admin
+          <a href="{% url 'login' %}" class="btn btn-outline-light fw-semibold rounded-pill">
+              Login
           </a>
+          <a href="http://127.0.0.1:8000/ranking3/1/?format=api" class="btn btn-outline-light fw-semibold rounded-pill">
+              Django Framework
+          </a>
+        </div>
+        <div class="d-flex gap-3">
+          
         </div>
       </nav>
     </div>
