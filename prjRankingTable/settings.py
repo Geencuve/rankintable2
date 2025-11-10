@@ -100,7 +100,7 @@ DATABASES = {
         'NAME': config('DB_NAME', default='rankingtabledb'),
         'USER': config('DB_USER', default='root'),
         'PASSWORD': config('DB_PASSWORD', default='admin'),
-        'HOST': config('DB_HOST', default='localhost-mysql.railway.app'),
+        'HOST': config('DB_HOST', default='mysql.railway.app'),
         'PORT': config('DB_PORT', default='3306'),
     }
 }
