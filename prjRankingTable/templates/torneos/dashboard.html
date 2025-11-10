@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Administrador{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="text-center mb-4">Panel de Control - Administración de Torneos</h1>
+    <div class="row g-3 justify-content-center">
+
+        <div class="col-md-4">
+            <a href="{% url 'ranking_list' %}" class="btn btn-outline-primary w-100 py-3">Gestionar Ranking</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'usuarios_list' %}" class="btn btn-outline-primary w-100 py-3">Gestionar Ususarios</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'equipo_list' %}" class="btn btn-outline-primary w-100 py-3">Gestionar lista de equipos</a>
+        </div>
+           
+    </div>
+        <div>
+        {% if messages %}
+        <div>
+          {% for msg in messages %}
+            <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        </div>
+</div>
+{% endblock %}

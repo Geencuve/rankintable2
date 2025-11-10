@@ -7,16 +7,21 @@
 {% load static %}
 
 <!-- Carrusel de imágenes -->
-<div id="carouselExample" class="carousel slide mb-4" data-bs-ride="carousel">
-  <div class="carousel-inner">
+<div id="carouselExample" class="carousel slide mb-4 mx-auto shadow rounded" data-bs-ride="carousel" style="max-width: 700px;">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Imagen 1"></button>
+    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Imagen 2"></button>
+    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Imagen 3"></button>
+  </div>
+  <div class="carousel-inner rounded">
     <div class="carousel-item active">
-      <img src="{% static 'media/1.jpg' %}" class="d-block w-100 img-fluid" style="height: 200px; object-fit: cover;" alt="Imagen 1">
+      <img src="{% static 'media/1.jpg' %}" class="d-block w-100" style="height: 230px; object-fit: cover; border-radius: 14px;" alt="Imagen 1">
     </div>
     <div class="carousel-item">
-      <img src="{% static 'media/2.png' %}" class="d-block w-100 img-fluid" style="height: 200px; object-fit: cover;" alt="Imagen 2">
+      <img src="{% static 'media/2.png' %}" class="d-block w-100" style="height: 230px; object-fit: cover; border-radius: 14px;" alt="Imagen 2">
     </div>
     <div class="carousel-item">
-      <img src="{% static 'media/3.png' %}" class="d-block w-100 img-fluid" style="height: 200px; object-fit: cover;" alt="Imagen 3">
+      <img src="{% static 'media/3.png' %}" class="d-block w-100" style="height: 230px; object-fit: cover; border-radius: 14px;" alt="Imagen 3">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -30,29 +35,73 @@
 </div>
 
 <!-- Información de equipos destacados -->
-<section class="mb-4">
-  <div class="container my-5">
-    <h2 class="text-center mb-4">🏆 Equipos Destacados</h2>
-    <div class="row justify-content-center">
-      {% for ranking in destacados %}
-      <div class="col-md-4 mb-3">
-        <div class="card text-center shadow">
-          <div class="card-header bg-primary text-white">
-            Puesto {{ ranking.posicion }}
+<style>
+  .card-gold { border: 4px solid gold; background: #fffbe6; }
+  .card-silver { border: 4px solid silver; background: #f8f9fa; }
+  .card-bronze { border: 4px solid #cd7f32; background: #fbecde; }
+  .card-header-gold { color: gold; }
+  .card-header-silver { color: silver; }
+  .card-header-bronze { color: #cd7f32; }
+  .destacados-flex {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 991px) {
+    .destacados-flex { flex-direction: column; align-items: center; }
+  }
+  .order-2 { order: 2; }
+  .order-1 { order: 1; }
+  .order-3 { order: 3; }
+  .card-primer-lugar {
+    transform: scale(1.07);
+    box-shadow: 0 0 16px gold;
+    z-index: 1;
+  }
+</style>
+
+  <section class="mb-4">
+    <div class="container my-5">
+      <a>
+        <h2 class="text-center mb-4">⁺‧₊˚ ⭐ Destacados ⭐ ˚₊‧⁺</h2>
+      </a>
+      <div class="destacados-flex">
+        {% for r in destacados %}
+        {% with pos=r.posicion|stringformat:"i" %}
+          <div class="mb-3 d-flex justify-content-center 
+              {% if pos == '2' %} order-1
+              {% elif pos == '1' %} order-2
+              {% elif pos == '3' %} order-3
+              {% endif %}" style="min-width:250px;">
+            <div class="card text-center shadow
+              {% if pos == '2' %} card-silver
+              {% elif pos == '1' %} card-gold card-primer-lugar
+              {% elif pos == '3' %} card-bronze
+              {% endif %}">
+              <div class="card-header fw-bold
+                {% if pos == '2' %} card-header-silver
+                {% elif pos == '1' %} card-header-gold
+                {% elif pos == '3' %} card-header-bronze
+                {% endif %}">
+                Puesto {{ r.posicion }}
+              </div>
+              <div class="card-body">
+                <h5 class="card-title mb-3">{{ r.equipo.nombre }}</h5>
+                <p class="card-text"><strong>Puntos:</strong> {{ r.puntajetotal }}</p>
+                <p class="card-text text-muted"><strong>Institución:</strong> {{ r.equipo.institucion }}</p>
+              </div>
+            </div>
           </div>
-          <div class="card-body">
-            <h5 class="card-title">{{ ranking.equipo.nombre }}</h5>
-            <p class="card-text"><strong>Puntos:</strong> {{ ranking.puntajetotal }}</p>
-            <p class="card-text"><strong>Código:</strong> {{ ranking.equipo.codigo }}</p>
-            <p class="card-text"><strong>Institución:</strong> {{ ranking.equipo.institucion }}</p>
-          </div>
-        </div>
+        {% endwith %}
+        {% empty %}
+          <p class="text-muted col-12 text-center">No hay equipos destacados aún.</p>
+        {% endfor %}
       </div>
-      {% empty %}
-      <p class="text-muted col-12 text-center">No hay equipos destacados aún.</p>
-      {% endfor %}
     </div>
-  </div>
+  </section>
+
 
   <!-- Tabla general con sombra y bordes redondeados -->
   <div class="table-responsive shadow-sm rounded">
@@ -69,7 +118,7 @@
         <tr>
           <td>{{ row.posicion }}</td>
           <td>
-            <a href="{% url 'equipo_detail' row.equipo.id %}" class="text-decoration-none">
+            <aclass="text-decoration-none">
               {{ row.equipo.nombre }}
             </a>
           </td>

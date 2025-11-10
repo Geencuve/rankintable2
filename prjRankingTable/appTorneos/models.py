@@ -1,6 +1,23 @@
 from django.db import models
+from django import forms
+from django.contrib.auth.hashers import make_password
 
+# ===================================================================
+# MODELO: USUARIO
+# ===================================================================
 class Usuario(models.Model):
+# Modelo Usuario - Gestiona usuarios del sistema
+# Campos:
+# - nombre: Nombre completo del usuario
+# - correo: Email único para login
+# - contrasena: Password hasheado (usar make_password)
+# - rol: Tipo de usuario (admin, visitante, otro)
+# - reset_token: Token para recuperación de contraseña
+# Relaciones:
+# - Usado por Historial (ForeignKey)
+# - Usado por Backup (ForeignKey)
+# - Validado por forms.py (RegistroForm, LoginForm)
+
     ROL_CHOICES = [
         ('admin', 'admin'),
         ('visitante', 'visitante'),
@@ -9,11 +26,19 @@ class Usuario(models.Model):
     nombre = models.CharField(max_length=150)
     correo = models.EmailField(unique=True, max_length=150)
     contrasena = models.CharField(max_length=255)
-    rol = models.CharField(max_length=20, choices=ROL_CHOICES, default='visitante')
-
+    rol = models.CharField(
+        max_length=20,
+        choices=ROL_CHOICES,
+        default='visitante'
+    )
+    # CORREGIDO: Agregado null=True
+    reset_token = models.CharField(
+        max_length=128,
+        blank=True,
+        null=True
+    )
     class Meta:
         db_table = 'USUARIO'
-
     def __str__(self):
         return self.nombre
 

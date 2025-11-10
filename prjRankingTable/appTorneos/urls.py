@@ -1,9 +1,13 @@
 from django.urls import path
 from . import views
 from .views_auth import login_view, registro_view, logout_view
+from . import views_auth
+from .views import UsuarioUpdateView, UsuarioDeleteView, UsuarioListView, UsuarioCreateView,usuario_api_detail
+
+
 
 urlpatterns = [
-    path('', views.tabla_posicionamiento, name='home'),
+    path('', views.inicio, name='home'),
     path('tabla/', views.tabla_posicionamiento, name='tabla_posicionamiento'),
     path('inicio/', views.inicio, name='inicio'),
  # CRUD Equipo
@@ -24,4 +28,19 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('registro/', registro_view, name='registro'),
     path('logout/', logout_view, name='logout'),
+    path('recuperar-cuenta/', views_auth.password_reset_request, name='password_reset_request'),
+    path('establecer-contrasena/<str:token>/', views_auth.set_password, name='set_password'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('logout/', views_auth.logout_view, name='logout'),
+    path('matriz-enfrentamientos/', views.matriz_enfrentamientos, name='matriz_enfrentamientos'),
+    path('llaves-eliminacion/', views.tabla_eliminacion_directa, name='tabla_eliminacion_directa'),
+    path('usuarios/', views.usuarios_list, name='usuarios_list'),
+    path('usuarios/registrar/', views.registrar_usuario, name='registrar_usuario'),
+    
+    path('usuarios/', UsuarioListView.as_view(), name='usuario_list'),
+    path('usuarios/nuevo/', UsuarioCreateView.as_view(), name='registrar_usuario'),
+    path('usuarios/<int:pk>/editar/', UsuarioUpdateView.as_view(), name='editar_usuario'),
+    path('usuarios/<int:pk>/eliminar/', UsuarioDeleteView.as_view(), name='usuario_confirm_delete'),
+    path('api/usuarios/<int:pk>/', usuario_api_detail, name='usuario_api_detail'),
+
 ]

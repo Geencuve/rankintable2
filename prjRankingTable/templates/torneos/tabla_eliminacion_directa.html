@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Llaves de Eliminación Directa{% endblock %}
+{% block content %}
+<div class="container my-3">
+  <h2 class="text-center mb-4"> 🔥 Avance por Rondas 🔥</h2>
+  <div class="row justify-content-center">
+    {% for ronda, resultados in rondas_resultados.items %}
+        <div class="col-md-4 mb-3">
+            <h4>{{ ronda }}</h4>
+            <ul class="list-group">
+            {% for r in resultados %}
+            <li class="list-group-item d-flex justify-content-between">
+                {{ r.equipo_ganador.nombre }} vs {{ r.equipo_perdedor.nombre }}
+                <span>
+                Ganador: <span class="text-success">{{ r.equipo_ganador.nombre }}</span>
+                </span>
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

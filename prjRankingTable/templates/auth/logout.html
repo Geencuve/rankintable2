@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Has cerrado sesión{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+    <div class="card-body text-center">
+      <h2 class="text-success mb-3">Has cerrado sesión correctamente.</h2>
+      <p class="mb-4">Gracias por usar nuestra plataforma.</p>
+      <a href="{% url 'login' %}" class="btn btn-primary px-4">Iniciar sesión nuevamente</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

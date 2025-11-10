@@ -21,19 +21,22 @@
   <!-- Header -->
   <header class="sticky-top py-3 px-3 bg-primary" style="background: linear-gradient(90deg,#22223B,#4A4E69);">
     <div class="container-lg d-flex justify-content-between align-items-center">
-      <a href="{% url 'inicio' %}" class="h3 mb-0 text-white text-decoration-none fw-bold" style="letter-spacing:2px;">🏅 Ranking Table</a>
+      <a href="{% url 'inicio' %}" >
+        <img src="{% static 'images/logo_ranking_table.png' %}" alt="Ranking Table Logo" style="height: 65px;width: 200px; margin-left: 0px;; margin-right: 0px; ">
+      </a>
+      <div class="d-flex justify-content-center align-items-center flex-grow-1">
+        <a href="{% url 'matriz_enfrentamientos' %}" class="btn btn-outline-warning mx-2 fw-semibold rounded-pill"> 📈 Batallas </a>
+        <a href="{% url 'tabla_eliminacion_directa' %}" class="btn btn-outline-info mx-2 fw-semibold rounded-pill"> 🚀 Avance</a>
+      </div>
       <nav>
-        <div class="d-flex gap-3">
-          <a href="{% url 'login' %}" class="btn btn-outline-light fw-semibold rounded-pill">
-              Login
-          </a>
-          <a href="http://127.0.0.1:8000/ranking3/1/?format=api" class="btn btn-outline-light fw-semibold rounded-pill">
-              Django Framework
-          </a>
-        </div>
-        <div class="d-flex gap-3">
-          
-        </div>
+        <div class="d-flex gap-3">         
+          {% if request.session.user_id %}
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-info fw-semibold rounded-pill"> ⚙️ </a>
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger fw-semibold rounded-pill">🏃🚪Logout</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="btn btn-outline-success fw-semibold rounded-pill"> ➜] Login</a>
+         {% endif %}
+        </div>      
       </nav>
     </div>
   </header>

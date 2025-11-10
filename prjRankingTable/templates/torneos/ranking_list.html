@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block title %}Lista de Rankings{% endblock %}
 
 {% block content %}
@@ -36,9 +38,10 @@
       </table>
       <div class="d-flex justify-content-end gap-2">
         <a href="{% url 'ranking_create' %}" class="btn btn-success">Nuevo Ranking</a>
-        <a href="{% url 'tabla_posicionamiento' %}" class="btn btn-success">Volver</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Volver</a>
       </div>
     </div>
   </div>
 </div>
 {% endblock %}
+

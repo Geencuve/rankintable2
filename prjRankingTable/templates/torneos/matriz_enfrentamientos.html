@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Matriz de Enfrentamientos{% endblock %}
+{% load extras %}
+{% block content %}
+<div class="container my-3">
+  <h2 class="text-center mb-4"> (ง'̀-'́)ง Resultado Duelos</h2>
+  <table class="table table-bordered text-center">
+    <thead>
+      <tr>
+        <th>Equipo</th>
+        {% for col in equipos %}
+          <th>{{ col.nombre }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in equipos %}
+        <tr>
+          <th>{{ row.nombre }}</th>
+          {% for col in equipos %}
+            {% if row.pk == col.pk %}
+              <td class="bg-secondary"></td>
+            {% else %}
+              {% with resultado=matriz_resultados|get_item:row.pk|get_item:col.pk %}
+                {% if resultado == 'G' %}
+                  <td class="bg-success text-white">&#9679;</td> {# verde - ganador #}
+                {% elif resultado == 'P' %}
+                  <td class="bg-danger text-white">&#10060;</td> {# rojo - perdedor #}
+                {% elif resultado == 'E' %}
+                  <td class="bg-warning text-dark">&#9651;</td> {# amarillo - empate #}
+                {% else %}
+                  <td>-</td>
+                {% endif %}
+              {% endwith %}
+            {% endif %}
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

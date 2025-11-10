@@ -15,6 +15,15 @@ import os
 import pymysql
 
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'gerardo.cuellar@inacapmail.cl'
+EMAIL_HOST_PASSWORD = 'admin'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -47,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appTorneos',
     'rest_framework',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

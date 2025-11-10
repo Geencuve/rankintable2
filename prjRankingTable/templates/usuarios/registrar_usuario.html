@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Registrar Usuario</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <p>
+    <label for="id_codigo_validacion">Código de Validación:</label>
+    <input type="text" name="codigo_validacion" id="id_codigo_validacion" required>
+  </p>
+  <button type="submit">Registrar</button>
+</form>
+<a href="{% url 'usuarios_list' %}">Volver a la lista</a>
+{% endblock %}

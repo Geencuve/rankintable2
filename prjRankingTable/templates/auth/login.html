@@ -1,6 +1,5 @@
-{% extends "base.html" %}
-{% block title %}Iniciar Sesión{% endblock %}
-
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <div class="d-flex justify-content-center align-items-center" style="min-height:70vh;">
   <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%;">
@@ -8,7 +7,14 @@
       <h2 class="card-title text-center mb-4">Iniciar Sesión</h2>
       <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="mb-3">
+          <label for="{{ form.correo.id_for_label }}" class="form-label">Correo:</label>
+          {{ form.correo}}
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.contrasena.id_for_label }}" class="form-label">Contraseña:</label>
+          {{ form.contrasena}}
+        </div>
         <div class="d-flex justify-content-center mt-3">
           <button type="submit" class="btn btn-primary px-4">Entrar</button>
         </div>
@@ -16,7 +22,11 @@
       <p class="text-center mt-3 mb-0">
         ¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate aquí</a>
       </p>
+      <p class="text-center mt-3 mb-0">
+        ¿Olvidaste tus datos? <a href="{% url 'password_reset_request' %}">Recuperar cuenta</a>
+      </p>
     </div>
   </div>
 </div>
 {% endblock %}
+
