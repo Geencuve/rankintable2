@@ -100,7 +100,7 @@ DATABASES = {
         'NAME': config('DB_NAME', default='rankingtabledb'),
         'USER': config('DB_USER', default='root'),
         'PASSWORD': config('DB_PASSWORD', default='admin'),
-        'HOST': config('DB_HOST', default='localhost'),
+        'HOST': config('DB_HOST', default='3.134.238.10'),
         'PORT': config('DB_PORT', default='3306'),
     }
 }
