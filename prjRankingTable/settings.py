@@ -97,10 +97,11 @@ WSGI_APPLICATION = 'prjRankingTable.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rankingtabledb',
-        'USER': 'root',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'NAME': config('rankingtabledb'),
+        'USER': config('root'),
+        'PASSWORD': config('admin'),
+        'HOST': config('localhost'),
+        'PORT': config('3306'),
     }
 }
 
