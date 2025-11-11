@@ -44,7 +44,7 @@ SECRET_KEY = 'django-insecure-%(ymisf9c(qwq2xg^&mb*1r0@nt1#^5p6%g@%ranud3c3ykg5y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['rankingtable2.onrender.com','3.134.238.10']
+ALLOWED_HOSTS = ['rankingtable2.onrender.com','mysql.railway.app']
 
 
 # Application definition
@@ -100,7 +100,7 @@ DATABASES = {
         'NAME': config('DB_NAME', default='rankingtabledb'),
         'USER': config('DB_USER', default='root'),
         'PASSWORD': config('DB_PASSWORD', default='admin'),
-        'HOST': config('DB_HOST', default='3.134.238.10'),
+        'HOST': config('DB_HOST', default='mysql.railway.app'),
         'PORT': config('DB_PORT', default='3306'),
     }
 }
