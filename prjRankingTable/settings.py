@@ -44,7 +44,7 @@ SECRET_KEY = 'django-insecure-%(ymisf9c(qwq2xg^&mb*1r0@nt1#^5p6%g@%ranud3c3ykg5y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['rankingtable2.onrender .com','3.134.238.10']
+ALLOWED_HOSTS = ['rankingtable2.onrender.com','3.134.238.10']
 
 
 # Application definition
