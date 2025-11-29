@@ -16,13 +16,14 @@ import pymysql
 from decouple import config
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.office365.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'gerardo.cuellar@inacapmail.cl'
-EMAIL_HOST_PASSWORD = 'admin'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,10 +40,10 @@ pymysql.install_as_MySQLdb()
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%(ymisf9c(qwq2xg^&mb*1r0@nt1#^5p6%g@%ranud3c3ykg5y'
+SECRET_KEY = config('django-insecure-%(ymisf9c(qwq2xg^&mb*1r0@nt1#^5p6%g@%ranud3c3ykg5y')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['rankingtable2.onrender.com','localhost']
 
