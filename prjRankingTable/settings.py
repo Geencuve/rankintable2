@@ -46,7 +46,11 @@ SECRET_KEY = config(
 )
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['rankingtable2.onrender.com','localhost']
+ALLOWED_HOSTS = [
+    'rankintable2-qy6l.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
