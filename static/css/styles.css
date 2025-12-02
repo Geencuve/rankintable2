@@ -1,0 +1,13 @@
+/* ajustes suaves para la tabla y la card */
+.card { box-shadow: 0 6px 20px rgba(0,0,0,.04); border-radius: 8px; }
+
+.table > tbody > tr > td { vertical-align: middle; }
+
+.ranking-button {transition: background-color 0.3s ease, box-shadow 0.3s ease;}
+
+.ranking-button:hover {background-color: rgba(255, 255, 255, 0.2); /* suave brillo blanco */}
+
+.ranking-button:active {background-color: rgba(255, 255, 255, 0.4); /* brillo más intenso */box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7); /* resplandor */}
+
+
+
