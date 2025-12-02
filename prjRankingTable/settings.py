@@ -43,7 +43,6 @@ pymysql.install_as_MySQLdb()
 SECRET_KEY = config('django-insecure-%(ymisf9c(qwq2xg^&mb*1r0@nt1#^5p6%g@%ranud3c3ykg5y')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-SECRET_KEY = config('SECRET_KEY')
 
 ALLOWED_HOSTS = ['rankingtable2.onrender.com','localhost']
 
