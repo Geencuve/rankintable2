@@ -40,8 +40,10 @@ pymysql.install_as_MySQLdb()
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('django-insecure-%(ymisf9c(qwq2xg^&mb*1r0@nt1#^5p6%g@%ranud3c3ykg5y')
-
+SECRET_KEY = config(
+    'SECRET_KEY',
+    default='django-insecure-%(ymisf9c(qwq2xg^&mb*1r0@nt1#^5p6%g@%ranud3c3ykg5y'
+)
 # SECURITY WARNING: don't run with debug turned on in production!
 
 ALLOWED_HOSTS = ['rankingtable2.onrender.com','localhost']
