@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}Ronda{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
+    <h2 class="card-title text-center mb-4">
+      {% if form.instance.pk %}Editar ronda{% else %}Nueva ronda{% endif %}
+    </h2>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="mb-3">
+        <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
+        {% render_field form.nombre class="form-control" %}
+        <div class="form-text">Ejemplo: Ronda 1, Cuartos de final, Semifinal, etc.</div>
+        {% for error in form.nombre.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.fecha.id_for_label }}" class="form-label">Fecha</label>
+        {% render_field form.fecha class="form-control" %}
+        <div class="form-text">Formato sugerido: AAAA-MM-DD.</div>
+        {% for error in form.fecha.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.fase.id_for_label }}" class="form-label">Fase</label>
+        {% render_field form.fase class="form-control" %}
+        <div class="form-text">Ejemplo: Clasificatoria, Eliminación directa, Final.</div>
+        {% for error in form.fase.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="d-flex justify-content-between mt-4">
+        <a href="{% url 'ronda_list' %}" class="btn btn-secondary px-4">Cancelar</a>
+        <button type="submit" class="btn btn-primary px-4">
+          {% if form.instance.pk %}Actualizar{% else %}Guardar{% endif %}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Participante{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-info text-white">
+            {% if form.instance.pk %}Editar participante{% else %}Nuevo participante{% endif %}
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{% url 'participantes_list' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

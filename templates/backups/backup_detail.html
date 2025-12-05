@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Detalle Backup{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow p-4" style="max-width: 650px; width: 100%;">
+    <h2 class="card-title text-center mb-4">Detalle de backup</h2>
+
+    <div class="mb-3">
+      <h4 class="mb-1">
+        Archivo: {{ backup.archivo }}
+      </h4>
+      <p class="text-muted mb-0">
+        Información del respaldo almacenado en el sistema.
+      </p>
+    </div>
+
+    <hr>
+
+    <dl class="row mb-0">
+      <dt class="col-sm-4">Usuario</dt>
+      <dd class="col-sm-8">
+        {{ backup.usuario.nombre }}
+      </dd>
+
+      <dt class="col-sm-4">Fecha</dt>
+      <dd class="col-sm-8">
+        {{ backup.fecha|date:"d/m/Y H:i" }}
+      </dd>
+
+      <dt class="col-sm-4">Tipo</dt>
+      <dd class="col-sm-8">
+        {{ backup.tipo|default:"No especificado" }}
+      </dd>
+    </dl>
+
+    <div class="d-flex justify-content-between mt-4">
+      <a href="{% url 'backups_list' %}" class="btn btn-secondary px-4">
+        Volver al listado
+      </a>
+      <div>
+        <a href="{% url 'backups_update' backup.pk %}" class="btn btn-primary px-3 me-2">
+          Editar
+        </a>
+        <a href="{% url 'backups_delete' backup.pk %}" class="btn btn-danger px-3">
+          Eliminar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

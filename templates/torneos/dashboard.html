@@ -1,31 +1,254 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Dashboard Administrador{% endblock %}
 
 {% block content %}
 <div class="container my-4">
     <h1 class="text-center mb-4">Panel de Control - Administración de Torneos</h1>
-    <div class="row g-3 justify-content-center">
 
-        <div class="col-md-4">
-            <a href="{% url 'ranking_list' %}" class="btn btn-outline-primary w-100 py-3">Gestionar Ranking</a>
+    <!-- Acciones principales -->
+    <div class="row g-3 justify-content-center mb-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Ranking</h5>
+                    <p class="card-text small text-muted">
+                        Administración de posiciones y puntajes de los equipos.
+                    </p>
+                    <a href="{% url 'ranking_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar Ranking
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <a href="{% url 'usuarios_list' %}" class="btn btn-outline-primary w-100 py-3">Gestionar Ususarios</a>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Usuarios</h5>
+                    <p class="card-text small text-muted">
+                        Gestión de cuentas y roles del sistema.
+                    </p>
+                    <a href="{% url 'usuarios_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar Usuarios
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <a href="{% url 'equipo_list' %}" class="btn btn-outline-primary w-100 py-3">Gestionar lista de equipos</a>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Instituciones</h5>
+                    <p class="card-text small text-muted">
+                        Gestión de instituciones.
+                    </p>
+                    <a href="{% url 'instituciones_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar institucion
+                    </a>
+                </div>
+            </div>
         </div>
-           
-    </div>
-        <div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Equipos</h5>
+                    <p class="card-text small text-muted">
+                        Administración de equipos participantes en los torneos.
+                    </p>
+                    <a href="{% url 'equipo_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar Equipos
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Puntajes</h5>
+                    <p class="card-text small text-muted">
+                        Administración de puntajes en los torneos.
+                    </p>
+                    <a href="{% url 'puntajes_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar puntajes
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Participantes</h5>
+                    <p class="card-text small text-muted">
+                        Administración de participantes en los torneos.
+                    </p>
+                    <a href="{% url 'participantes_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar participantes
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Asignaciones</h5>
+                    <p class="card-text small text-muted">
+                        Administración de asignacion en los torneos.
+                    </p>
+                    <a href="{% url 'asignaciones_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar asignaciones
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Panel Django</h5>
+                    <p class="card-text small text-muted">
+                        Acceso al panel de administración de la base de datos.
+                    </p>
+                    <a href="http://127.0.0.1:8000/admin/login/?next=/admin/" class="btn btn-outline-primary w-100">
+                        Admin DB
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Backups</h5>
+                    <p class="card-text small text-muted">
+                        Gestión de respaldos de la base de datos.
+                    </p>
+                    <a href="{% url 'backups_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar respaldo
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Salas</h5>
+                    <p class="card-text small text-muted">
+                        Administración de salas en los torneos.
+                    </p>
+                    <a href="{% url 'sala_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar salas
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">    
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Resultados</h5>
+                    <p class="card-text small text-muted">
+                        Administración de resultados en los torneos.
+                    </p>
+                    <a href="{% url 'resultado_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar resultados
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">Rondas</h5>
+                    <p class="card-text small text-muted">
+                        Administración de rondas en los torneos.
+                    </p>
+                    <a href="{% url 'ronda_list' %}" class="btn btn-outline-primary w-100">
+                        Gestionar rondas
+                    </a>
+                </div>
+            </div>
+        </div>
+    <!-- Mensajes del sistema -->
+    <div class="mt-2">
         {% if messages %}
-        <div>
-          {% for msg in messages %}
-            <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
-          {% endfor %}
-        </div>
+            {% for msg in messages %}
+                <div class="alert alert-{{ msg.tags }} alert-dismissible fade show" role="alert">
+                    {{ msg }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                </div>
+            {% endfor %}
         {% endif %}
+    </div>
+
+    <!-- Estadísticas y tablas -->
+    <div class="row mt-4">
+        <!-- Promedio por ronda -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    Promedio de puntaje por ronda
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Ronda</th>
+                                    <th scope="col" class="text-end">Promedio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for fila in promedio_por_ronda %}
+                                    <tr>
+                                        <td>{{ fila.ronda__nombre }}</td>
+                                        <td class="text-end">{{ fila.promedio|floatformat:2 }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="2" class="text-center text-muted">
+                                            No hay datos de puntajes registrados.
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- Top 10 equipos con más victorias -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-success text-white">
+                    Top 10 equipos con más victorias
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Equipo</th>
+                                    <th scope="col" class="text-end">Victorias</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for fila in top_equipos %}
+                                    <tr>
+                                        <td>{{ fila.equipo_ganador__nombre }}</td>
+                                        <td class="text-end">{{ fila.victorias }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="2" class="text-center text-muted">
+                                            No hay resultados de debates registrados.
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
+

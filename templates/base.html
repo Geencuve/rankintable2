@@ -2,63 +2,113 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Ranking Table{% endblock %}</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    html,body { min-height: 100%; background-color: #f8fafc;}
-    main { min-height: 75vh; }
-    header.sticky-top, footer { box-shadow: 0 2px 6px rgba(0,0,0,.08);}
-    .card { border-radius: 1rem; }
-    footer { background: #22223B !important; color: #fff;}
-    footer a { color: #f2e9e4; }
-  </style>
-  {% block extra_head %}{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Ranking Table{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        html, body { min-height: 100%; background-color: #f8fafc; }
+        body { display: flex; flex-direction: column; }
+        main { flex: 1 0 auto; min-height: 70vh; }
+        header.sticky-top, footer { box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+        .card { border-radius: 1rem; }
+        footer { background: #22223B !important; color: #fff; }
+        footer a { color: #f2e9e4; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        .brand-logo { height: 60px; width: auto; }
+    </style>
+
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
-  <!-- Header -->
-  <header class="sticky-top py-3 px-3 bg-primary" style="background: linear-gradient(90deg,#22223B,#4A4E69);">
-    <div class="container-lg d-flex justify-content-between align-items-center">
-      <a href="{% url 'inicio' %}" >
-        <img src="{% static 'images/logo_ranking_table.png' %}" alt="Ranking Table Logo" style="height: 65px;width: 200px; margin-left: 0px;; margin-right: 0px; ">
-      </a>
-      <div class="d-flex justify-content-center align-items-center flex-grow-1">
-        <a href="{% url 'matriz_enfrentamientos' %}" class="btn btn-outline-warning mx-2 fw-semibold rounded-pill"> 📈 Batallas </a>
-        <a href="{% url 'tabla_eliminacion_directa' %}" class="btn btn-outline-info mx-2 fw-semibold rounded-pill"> 🚀 Avance</a>
-      </div>
-      <nav>
-        <div class="d-flex gap-3">         
-          {% if request.session.user_id %}
-            <a href="{% url 'dashboard' %}" class="btn btn-outline-info fw-semibold rounded-pill"> ⚙️ </a>
-            <a href="{% url 'logout' %}" class="btn btn-outline-danger fw-semibold rounded-pill">🏃🚪Logout</a>
-          {% else %}
-            <a href="{% url 'login' %}" class="btn btn-outline-success fw-semibold rounded-pill"> ➜] Login</a>
-         {% endif %}
-        </div>      
-      </nav>
-    </div>
-  </header>
+    <!-- Header -->
+    <header class="sticky-top py-2" style="background: linear-gradient(90deg,#22223B,#4A4E69);">
+        <div class="container-lg d-flex justify-content-between align-items-center">
+            <!-- Logo -->
+            <a href="{% url 'inicio' %}" class="d-flex align-items-center text-decoration-none">
+                <img src="{% static 'images/logo_ranking_table.png' %}"
+                     alt="Ranking Table Logo"
+                     class="brand-logo me-2">
+            </a>
 
-  <!-- Main Content -->
-  <main class="container-lg py-5">
-    <div class="row justify-content-center">
-      <div class="col-lg-10">{% block content %}{% endblock %}</div>
-    </div>
-  </main>
+            <!-- Navegación central -->
+            <div class="d-none d-md-flex justify-content-center align-items-center flex-grow-1">
+                <a href="{% url 'matriz_enfrentamientos' %}"
+                   class="btn btn-outline-warning mx-2 fw-semibold rounded-pill">
+                    📈 Batallas
+                </a>
+                <a href="{% url 'tabla_eliminacion_directa' %}"
+                   class="btn btn-outline-info mx-2 fw-semibold rounded-pill">
+                    🚀 Avance
+                </a>
+            </div>
 
-  <!-- Footer -->
-  <footer class="py-3 mt-auto">
-    <div class="container-lg d-flex flex-column flex-md-row justify-content-between align-items-center">
-      <div>© 2025 Ranking Table. Derechos reservados.</div>
-      <div>Última actualización: {{ now|date:"d/m/Y H:i" }}</div>
-      <div><a href="#">Nosotros</a> | <a href="#">Contacto</a></div>
-    </div>
-  </footer>
+            <!-- Acciones usuario -->
+            <nav>
+                <div class="d-flex gap-2">
+                    {% if request.session.user_id %}
+                        <a href="{% url 'dashboard' %}"
+                           class="btn btn-outline-info fw-semibold rounded-pill"
+                           title="Panel de administración">
+                            ⚙️
+                        </a>
+                        <a href="{% url 'logout' %}"
+                           class="btn btn-outline-danger fw-semibold rounded-pill">
+                            🏃🚪 Logout
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}"
+                           class="btn btn-outline-success fw-semibold rounded-pill">
+                            ➜ Login
+                        </a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  {% block extra_js %}{% endblock %}
+        <!-- Navegación central en móviles -->
+        <div class="container-lg d-flex d-md-none justify-content-center mt-2 mb-2">
+            <a href="{% url 'matriz_enfrentamientos' %}"
+               class="btn btn-outline-warning mx-1 fw-semibold rounded-pill">
+                📈 Batallas
+            </a>
+            <a href="{% url 'tabla_eliminacion_directa' %}"
+               class="btn btn-outline-info mx-1 fw-semibold rounded-pill">
+                🚀 Avance
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container-lg py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-3 mt-auto">
+        <div class="container-lg d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="mb-2 mb-md-0">
+                © 2025 Ranking Table. Todos los derechos reservados.
+            </div>
+            <div class="mb-2 mb-md-0 small">
+                Última actualización: {{ now|date:"d/m/Y H:i" }}
+            </div>
+            <div>
+                <a href="#">Nosotros</a> ·
+                <a href="#">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

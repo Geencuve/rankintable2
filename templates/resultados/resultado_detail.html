@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Detalle Resultado{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow p-4" style="max-width: 650px; width: 100%;">
+    <h2 class="card-title text-center mb-4">Detalle de resultado</h2>
+
+    <div class="mb-3">
+      <h4 class="mb-1">
+        {{ resultado.equipo_ganador.nombre }}
+        <span class="text-success">ganó</span>
+        {% if resultado.equipo_perdedor %}
+          a {{ resultado.equipo_perdedor.nombre }}
+        {% endif %}
+      </h4>
+      <p class="text-muted mb-0">
+        Sala: {{ resultado.sala.nombre }} · Ronda: {{ resultado.ronda.nombre|default:"No definida" }}
+      </p>
+    </div>
+
+    <hr>
+
+    <dl class="row mb-0">
+      <dt class="col-sm-4">Sala</dt>
+      <dd class="col-sm-8">{{ resultado.sala.nombre }}</dd>
+
+      <dt class="col-sm-4">Ronda</dt>
+      <dd class="col-sm-8">{{ resultado.ronda.nombre|default:"No definida" }}</dd>
+
+      <dt class="col-sm-4">Equipo ganador</dt>
+      <dd class="col-sm-8">{{ resultado.equipo_ganador.nombre }}</dd>
+
+      <dt class="col-sm-4">Equipo perdedor</dt>
+      <dd class="col-sm-8">
+        {{ resultado.equipo_perdedor.nombre|default:"No registrado" }}
+      </dd>
+    </dl>
+
+    <div class="d-flex justify-content-between mt-4">
+      <a href="{% url 'resultado_list' %}" class="btn btn-secondary px-4">
+        Volver al listado
+      </a>
+      <div>
+        <a href="{% url 'resultado_update' resultado.pk %}" class="btn btn-primary px-3 me-2">
+          Editar
+        </a>
+        <a href="{% url 'resultado_delete' resultado.pk %}" class="btn btn-danger px-3">
+          Eliminar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

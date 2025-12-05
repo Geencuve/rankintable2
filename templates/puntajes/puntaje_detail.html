@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Detalle Puntaje{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow p-4" style="max-width: 650px; width: 100%;">
+    <h2 class="card-title text-center mb-4">Detalle de puntaje</h2>
+
+    <div class="mb-3">
+      <h4 class="mb-1">
+        {{ puntaje.participante.nombre }}
+      </h4>
+      <p class="text-muted mb-0">
+        Equipo: {{ puntaje.participante.equipo }}
+      </p>
+    </div>
+
+    <hr>
+
+    <dl class="row mb-0">
+      <dt class="col-sm-4">Sala</dt>
+      <dd class="col-sm-8">
+        {{ puntaje.sala.nombre }}
+      </dd>
+
+      <dt class="col-sm-4">Ronda</dt>
+      <dd class="col-sm-8">
+        {{ puntaje.ronda.nombre|default:"No definida" }}
+      </dd>
+
+      <dt class="col-sm-4">Puntaje</dt>
+      <dd class="col-sm-8 fw-semibold">
+        {{ puntaje.puntaje }}
+      </dd>
+    </dl>
+
+    <div class="d-flex justify-content-between mt-4">
+      <a href="{% url 'puntajes_list' %}" class="btn btn-secondary px-4">
+        Volver al listado
+      </a>
+      <div>
+        <a href="{% url 'puntajes_update' puntaje.pk %}" class="btn btn-primary px-3 me-2">
+          Editar
+        </a>
+        <a href="{% url 'puntajes_delete' puntaje.pk %}" class="btn btn-danger px-3">
+          Eliminar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

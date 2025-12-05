@@ -6,29 +6,64 @@
   <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%;">
     <div class="card-body">
       <h2 class="card-title text-center mb-4">Crear Cuenta</h2>
-      <form method="post">
+      <form method="post" novalidate>
         {% csrf_token %}
+        
+        <!-- Mostrar mensajes generales -->
+        {% if messages %}
+          <div>
+            {% for msg in messages %}
+              <div class="alert alert-{% if msg.tags %}{{ msg.tags }}{% else %}info{% endif %}">{{ msg }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <!-- Campo Nombre -->
         <div class="mb-3">
-          <label for="{{ form.correo.id_for_label }}" class="form-label">Correo:</label>
+          {{ form.nombre.label_tag }}
+          {{ form.nombre }}
+          {% for error in form.nombre.errors %}
+            <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- Campo Correo -->
+        <div class="mb-3">
+          {{ form.correo.label_tag }}
           {{ form.correo }}
+          {% for error in form.correo.errors %}
+            <div class="text-danger">{{ error }}</div>
+          {% endfor %}
         </div>
+
+        <!-- Campo Contraseña -->
         <div class="mb-3">
-          <label for="{{ form.contrasena.id_for_label }}" class="form-label">Contraseña:</label>
+          {{ form.contrasena.label_tag }}
           {{ form.contrasena }}
+          {% for error in form.contrasena.errors %}
+            <div class="text-danger">{{ error }}</div>
+          {% endfor %}
         </div>
 
-        <!-- Nuevo campo para código de validación -->
+        <!-- Campo Confirmar Contraseña -->
+        <div class="mb-3">
+          {{ form.confirmar_contrasena.label_tag }}
+          {{ form.confirmar_contrasena }}
+          {% for error in form.confirmar_contrasena.errors %}
+            <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+        </div>
 
-          {% if messages %}
-            <div>
-              {% for msg in messages %}
-                {% if 'incorrecto' in msg.message %}
-                  <div class="alert alert-danger">{{ msg }}</div>
-                {% endif %}
-              {% endfor %}
-            </div>
-          {% endif %}
+        <!-- Campo Rol -->
+        <div class="mb-3">
+          {{ form.rol.label_tag }}
+          {{ form.rol }}
+          {% for error in form.rol.errors %}
+            <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+        </div>
 
+        <!-- Campo Código de Validación fuera de form -->
         <div class="mb-3">
           <label for="codigo_validacion" class="form-label">Código de Validación:</label>
           <input type="text" class="form-control" id="codigo_validacion" name="codigo_validacion" required>
@@ -46,4 +81,3 @@
   </div>
 </div>
 {% endblock %}
-

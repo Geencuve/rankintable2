@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Detalle Participante{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            Detalle de participante
+        </div>
+        <div class="card-body">
+            <h4>{{ participante.nombre }}</h4>
+            <p><strong>Correo:</strong> {{ participante.correo }}</p>
+            <p><strong>Rol:</strong> {{ participante.rol }}</p>
+            <p><strong>Equipo:</strong> {{ participante.equipo }}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{% url 'participantes_list' %}" class="btn btn-secondary">Volver</a>
+            <div>
+                <a href="{% url 'participantes_update' participante.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'participantes_delete' participante.pk %}" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

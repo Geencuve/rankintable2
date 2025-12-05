@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Resultados{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <h1 class="mb-3">Resultados de debates</h1>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-muted">
+      Historial de resultados por sala, ronda y equipos.
+    </span>
+    <div>
+      <a href="{% url 'resultado_create' %}" class="btn btn-primary me-2">+ Nuevo resultado</a>
+      <a href="{% url 'dashboard' %}" class="btn btn-success">Volver al dashboard</a>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-striped mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Sala</th>
+              <th>Ronda</th>
+              <th>Equipo ganador</th>
+              <th>Equipo perdedor</th>
+              <th class="text-end">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for resultado in resultados %}
+              <tr>
+                <td>{{ resultado.sala.nombre }}</td>
+                <td>{{ resultado.ronda.nombre|default:"-" }}</td>
+                <td>{{ resultado.equipo_ganador.nombre }}</td>
+                <td>{{ resultado.equipo_perdedor.nombre|default:"-" }}</td>
+                <td class="text-end">
+                  <a href="{% url 'resultado_detail' resultado.pk %}" class="btn btn-sm btn-outline-secondary">Ver</a>
+                  <a href="{% url 'resultado_update' resultado.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                  <a href="{% url 'resultado_delete' resultado.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="5" class="text-center text-muted py-3">
+                  No hay resultados registrados.
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

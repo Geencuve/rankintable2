@@ -1,14 +1,65 @@
 {% extends "base.html" %}
+{% block title %}Registrar usuario{% endblock %}
+
 {% block content %}
-<h2>Registrar Usuario</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <p>
-    <label for="id_codigo_validacion">Código de Validación:</label>
-    <input type="text" name="codigo_validacion" id="id_codigo_validacion" required>
-  </p>
-  <button type="submit">Registrar</button>
-</form>
-<a href="{% url 'usuarios_list' %}">Volver a la lista</a>
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    Registrar nuevo usuario
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small mb-3">
+                        Complete los datos del usuario y el código de validación entregado por el administrador.
+                    </p>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <div class="form-text">{{ field.help_text }}</div>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="mb-3">
+                            <label class="form-label" for="id_codigo_validacion">Código de validación</label>
+                            <input type="text"
+                                   name="codigo_validacion"
+                                   id="id_codigo_validacion"
+                                   class="form-control"
+                                   required>
+                            <div class="form-text">
+                                Solo los usuarios autorizados pueden registrar nuevas cuentas (código: entregado por el docente).
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'usuarios_list' %}" class="btn btn-secondary">
+                                Volver a la lista
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                Registrar usuario
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

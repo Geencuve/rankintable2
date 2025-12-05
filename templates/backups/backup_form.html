@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Backup{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow p-4" style="max-width: 650px; width: 100%;">
+    <h2 class="card-title text-center mb-4">
+      {% if form.instance.pk %}Editar backup{% else %}Nuevo backup{% endif %}
+    </h2>
+
+    <p class="text-muted small text-center mb-4">
+      Registre o actualice la información del respaldo generado por el sistema.
+    </p>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="mb-3">
+        <label for="{{ form.usuario.id_for_label }}" class="form-label">Usuario</label>
+        {% render_field form.usuario class="form-select" %}
+        {% for error in form.usuario.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.fecha.id_for_label }}" class="form-label">Fecha y hora</label>
+        {% render_field form.fecha class="form-control" %}
+        <div class="form-text">Formato sugerido: AAAA-MM-DD HH:MM:SS.</div>
+        {% for error in form.fecha.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.archivo.id_for_label }}" class="form-label">Nombre del archivo</label>
+        {% render_field form.archivo class="form-control" %}
+        {% for error in form.archivo.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.tipo.id_for_label }}" class="form-label">Tipo de backup</label>
+        {% render_field form.tipo class="form-control" %}
+        <div class="form-text">Ejemplo: completo, incremental, base de datos, etc.</div>
+        {% for error in form.tipo.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="d-flex justify-content-between mt-4">
+        <a href="{% url 'backups_list' %}" class="btn btn-secondary px-4">
+          Cancelar
+        </a>
+        <button type="submit" class="btn btn-primary px-4">
+          {% if form.instance.pk %}Actualizar{% else %}Guardar{% endif %}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

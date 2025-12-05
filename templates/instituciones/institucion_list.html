@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Instituciones{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="mb-3">Instituciones</h1>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Listado de instituciones registradas.</span>
+        </div>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Ciudad</th>
+                            <th>País</th>
+                            <th class="text-end">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for institucion in instituciones %}
+                            <tr>
+                                <td>{{ institucion.nombre }}</td>
+                                <td>{{ institucion.ciudad|default:"-" }}</td>
+                                <td>{{ institucion.pais|default:"-" }}</td>
+                                <td class="text-end">
+                                    <a href="{% url 'instituciones_detail' institucion.pk %}" class="btn btn-sm btn-outline-secondary">Ver</a>
+                                    <a href="{% url 'instituciones_update' institucion.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                                    <a href="{% url 'instituciones_delete' institucion.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-3">
+                                    No hay instituciones registradas.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div>
+<div>
+    <a href="{% url 'instituciones_create' %}" class="btn btn-primary">+ Nueva institución</a>
+    <a href="{% url 'dashboard' %}" class="btn btn-success">Volver</a>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Puntajes{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <h1 class="mb-3">Listado de puntajes</h1>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-muted">Registros de puntaje por participante, sala y ronda.</span>
+    <div>
+      <a href="{% url 'puntajes_create' %}" class="btn btn-primary me-2">+ Nuevo puntaje</a>
+      <a href="{% url 'dashboard' %}" class="btn btn-success">Volver al dashboard</a>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-striped mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Participante</th>
+              <th>Equipo</th>
+              <th>Sala</th>
+              <th>Ronda</th>
+              <th class="text-end">Puntaje</th>
+              <th class="text-end">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for puntaje in puntajes %}
+              <tr>
+                <td>{{ puntaje.participante.nombre }}</td>
+                <td>{{ puntaje.participante.equipo }}</td>
+                <td>{{ puntaje.sala.nombre }}</td>
+                <td>{{ puntaje.ronda.nombre|default:"-" }}</td>
+                <td class="text-end">{{ puntaje.puntaje }}</td>
+                <td class="text-end">
+                  <a href="{% url 'puntajes_detail' puntaje.pk %}" class="btn btn-sm btn-outline-secondary">Ver</a>
+                  <a href="{% url 'puntajes_update' puntaje.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                  <a href="{% url 'puntajes_delete' puntaje.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="6" class="text-center text-muted py-3">
+                  No hay puntajes registrados.
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

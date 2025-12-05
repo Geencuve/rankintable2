@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Backups{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <h1 class="mb-3">Listado de backups</h1>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-muted">
+      Respaldo de datos generados por los usuarios del sistema.
+    </span>
+    <div>
+      <a href="{% url 'backups_create' %}" class="btn btn-primary me-2">+ Nuevo backup</a>
+      <a href="{% url 'dashboard' %}" class="btn btn-success">Volver al dashboard</a>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-striped mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Archivo</th>
+              <th>Usuario</th>
+              <th>Fecha</th>
+              <th>Tipo</th>
+              <th class="text-end">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for backup in backups %}
+              <tr>
+                <td>{{ backup.archivo }}</td>
+                <td>{{ backup.usuario.nombre }}</td>
+                <td>{{ backup.fecha|date:"d/m/Y H:i" }}</td>
+                <td>{{ backup.tipo|default:"No especificado" }}</td>
+                <td class="text-end">
+                  <a href="{% url 'backups_detail' backup.pk %}" class="btn btn-sm btn-outline-secondary">Ver</a>
+                  <a href="{% url 'backups_update' backup.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                  <a href="{% url 'backups_delete' backup.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="5" class="text-center text-muted py-3">
+                  No hay backups registrados.
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

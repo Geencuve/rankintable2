@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Detalle Ronda{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
+    <h2 class="card-title text-center mb-4">Detalle de ronda</h2>
+
+    <div class="mb-3">
+      <h4 class="mb-1">
+        {{ ronda.nombre|default:"(Sin nombre)" }}
+      </h4>
+      <p class="text-muted mb-0">
+        Información de la ronda o fase dentro del torneo de debates.
+      </p>
+    </div>
+
+    <hr>
+
+    <dl class="row mb-0">
+      <dt class="col-sm-4">Fecha</dt>
+      <dd class="col-sm-8">
+        {{ ronda.fecha|date:"d/m/Y"|default:"No definida" }}
+      </dd>
+
+      <dt class="col-sm-4">Fase</dt>
+      <dd class="col-sm-8">
+        {{ ronda.fase|default:"No especificada" }}
+      </dd>
+    </dl>
+
+    <div class="d-flex justify-content-between mt-4">
+      <a href="{% url 'ronda_list' %}" class="btn btn-secondary px-4">
+        Volver al listado
+      </a>
+      <div>
+        <a href="{% url 'ronda_update' ronda.pk %}" class="btn btn-primary px-3 me-2">
+          Editar
+        </a>
+        <a href="{% url 'ronda_delete' ronda.pk %}" class="btn btn-danger px-3">
+          Eliminar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

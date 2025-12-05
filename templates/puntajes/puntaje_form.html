@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Puntaje{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow p-4" style="max-width: 650px; width: 100%;">
+    <h2 class="card-title text-center mb-4">
+      {% if form.instance.pk %}Editar puntaje{% else %}Registrar puntaje{% endif %}
+    </h2>
+
+    <p class="text-muted small text-center mb-4">
+      Registre el puntaje obtenido por un participante en una sala y ronda específicas del torneo.
+    </p>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="mb-3">
+        <label for="{{ form.participante.id_for_label }}" class="form-label">Participante</label>
+        {% render_field form.participante class="form-select" %}
+        {% for error in form.participante.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="{{ form.sala.id_for_label }}" class="form-label">Sala</label>
+          {% render_field form.sala class="form-select" %}
+          {% for error in form.sala.errors %}
+            <div class="text-danger small">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="{{ form.ronda.id_for_label }}" class="form-label">Ronda</label>
+          {% render_field form.ronda class="form-select" %}
+          {% for error in form.ronda.errors %}
+            <div class="text-danger small">{{ error }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.puntaje.id_for_label }}" class="form-label">Puntaje</label>
+        {% render_field form.puntaje class="form-control text-end" %}
+        <div class="form-text">Ingrese el puntaje numérico obtenido (ejemplo: 85.50).</div>
+        {% for error in form.puntaje.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="d-flex justify-content-between mt-4">
+        <a href="{% url 'puntajes_list' %}" class="btn btn-secondary px-4">
+          Cancelar
+        </a>
+        <button type="submit" class="btn btn-primary px-4">
+          {% if form.instance.pk %}Actualizar{% else %}Guardar{% endif %}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

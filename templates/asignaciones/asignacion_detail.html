@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Detalle de Asignación{% endblock %}
+
+{% block content %}
+<div class="container my-4">    
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            Detalle de Asignación
+        </div>
+        <div class="card-body">
+            <h4>{{ asignacion.nombre }}</h4>
+           <p><strong>Equipo:</strong> {{ asignacion.equipo }}</p>
+           <p><strong>Sala:</strong> {{ asignacion.sala }}</p>
+           <p><strong>Ronda:</strong> {{ asignacion.ronda }}</p>
+           <p><strong>Posición:</strong> {{ asignacion.posicion }}</p>
+            
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{% url 'asignaciones_list' %}" class="btn btn-secondary">Volver</a>
+            <div>
+                <a href="{% url 'asignaciones_update' asignacion.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'asignaciones_delete' asignacion.pk %}" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
