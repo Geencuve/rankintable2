@@ -16,7 +16,7 @@ class RegistroForm(forms.ModelForm):
         widget=forms.EmailInput(attrs={'class': 'form-control'})
     )
     rol = forms.ChoiceField(
-        choices=Usuario.ROL_CHOICES,
+        choices=[('admin', 'admin')],
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
@@ -30,8 +30,17 @@ class RegistroForm(forms.ModelForm):
         confirm = cleaned_data.get('confirmar_contrasena')
         if password != confirm:
             raise forms.ValidationError("Las contraseñas no coinciden")
-        cleaned_data['contrasena'] = make_password(password)  # Hashea la contraseña
         return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        password = self.cleaned_data.get('contrasena')
+        if password:
+            user.contrasena = make_password(password)
+        if commit:
+            user.save()
+        return user
+
 
 class LoginForm(forms.Form):
     correo = forms.EmailField(
